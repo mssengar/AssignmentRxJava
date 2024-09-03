@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RxJavaSample</string>
+    <string name="welcome_text">Welcome</string>
+    <string name="password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="email">Enter Email</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_pass">Invalid Password</string>
+    <string name="posts">Posts</string>
+    <string name="favourites">Favourites</string>
+    <string name="marked_fav">"Marked as favourite"</string>
+    <string name="remove_fav">"Removed from favorite"</string>
+</resources>
