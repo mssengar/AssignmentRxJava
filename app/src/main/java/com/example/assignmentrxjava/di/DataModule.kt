@@ -1,17 +1,16 @@
 package com.example.assignmentrxjava.di
 
 import android.content.Context
-import com.example.assignmentrxjava.data.datasource.RemoteSource
-import com.example.assignmentrxjava.data.datasource.RemoteSourceImpl
-import com.example.assignmentrxjava.data.RepositoryImpl
 import com.example.assignmentrxjava.constant.ApiConstants
 import com.example.assignmentrxjava.data.ApiService
+import com.example.assignmentrxjava.data.RepositoryImpl
+import com.example.assignmentrxjava.data.datasource.RemoteSource
+import com.example.assignmentrxjava.data.datasource.RemoteSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -31,11 +30,16 @@ object DataModule {
     fun provideApiService(
         loggingInterceptor: HttpLoggingInterceptor,
         networkAndServerDownCheckerInterceptor: NetworkAndServerDownCheckerInterceptor
-        ) : ApiService {
+    ): ApiService {
         return Retrofit.Builder().baseUrl(ApiConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .client(providesOkHttpClient(loggingInterceptor, networkAndServerDownCheckerInterceptor))
+            .client(
+                providesOkHttpClient(
+                    loggingInterceptor,
+                    networkAndServerDownCheckerInterceptor
+                )
+            )
             .build().create(ApiService::class.java)
     }
 
@@ -72,6 +76,7 @@ object DataModule {
     fun providesConnectivityChecker(
         @ApplicationContext context: Context,
     ): NetworkChecker = NetworkCheckerImpl(context)
+
     @Provides
     @Singleton
     fun provideRemoteSource(apiService: ApiService): RemoteSourceImpl {
