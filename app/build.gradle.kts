@@ -55,9 +55,6 @@ dependencies {
 
     implementation("androidx.fragment:fragment-ktx:1.7.1")
 
-    //Data Store
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
-
     // Gson
     implementation("com.google.code.gson:gson:2.10.1")
 
@@ -91,6 +88,11 @@ dependencies {
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
+    // Room components
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+
 
 }
 

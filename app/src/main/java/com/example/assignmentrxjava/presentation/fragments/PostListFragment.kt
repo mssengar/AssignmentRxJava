@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.assignmentrxjava.R
-import com.example.assignmentrxjava.databinding.FragmentPostListBinding
 import com.example.assignmentrxjava.data.entity.Post
+import com.example.assignmentrxjava.databinding.FragmentPostListBinding
 import com.example.assignmentrxjava.presentation.adapter.OnItemClickListener
 import com.example.assignmentrxjava.presentation.adapter.PostListAdapter
 import com.example.assignmentrxjava.presentation.state.StatePostList
@@ -40,20 +39,25 @@ class PostListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_post_list, container, false)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPostListBinding.bind(view)
 
+        findNavController().clearBackStack(R.id.loginFragment)
         val mContext = requireContext()
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(resources.getString(R.string.posts)))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(resources.getString(R.string.favourites)))
 
         postListAdapter = PostListAdapter(listOf(), mContext)
         postListAdapter.setOnItemClickListener(object : OnItemClickListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onItemClick(position: Int) {
                 if (binding.tabLayout.selectedTabPosition == 0) {
-                    posts.single { it.id == position }.apply { isFav = !isFav }
+                    posts.single { it.id == position }.apply {
+                        isFav = !isFav
+                        postsViewModel.updateFavInDb(this)
+                    }
                     postListAdapter.notifyDataSetChanged()
                 }
             }
@@ -75,7 +79,7 @@ class PostListFragment : Fragment() {
 
                 is StatePostList.Failure -> {
                     val message = postListState.message
-                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -102,4 +106,5 @@ class PostListFragment : Fragment() {
             }
         })
     }
+
 }

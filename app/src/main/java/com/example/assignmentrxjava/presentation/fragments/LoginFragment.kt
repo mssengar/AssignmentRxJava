@@ -10,8 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.assignmentrxjava.R
+import com.example.assignmentrxjava.constant.Constant.IS_LOGIN
 import com.example.assignmentrxjava.databinding.FragmentLoginBinding
+import com.example.assignmentrxjava.presentation.MainActivity
 import com.example.assignmentrxjava.presentation.viewmodel.LoginViewModel
+import com.example.assignmentrxjava.utils.PrefHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -47,6 +50,7 @@ class LoginFragment : Fragment() {
             binding.loginBtn.isEnabled = viewModel.enableSubmitButton()
         }
         binding.loginBtn.setOnClickListener {
+            PrefHelper.isLogin = true
             findNavController().navigate(R.id.action_loginFragment_to_postListFragment)
         }
     }

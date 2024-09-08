@@ -1,7 +1,7 @@
 Built by using: 
 
 1.	Clean Architecture -> It provide separation of concern & ease of  scalability, performance, security, code reduction etc.
-2.	RxJava -> For handling Asynchronous event and data stream in more concise w& declarative way.
+2.	RxJava -> For handling Asynchronous event and data stream in more concise & declarative way.
 3.	Hilt -> For Dependency Injection.
 4.	MVVM [Model-View-ViewModel] -> MVVM separate an application's business logic and UI. Loosely coupled, increasing the testability.
 5.	View Binding -> It replaces findViewById making it easier to code that interacts with views. Enable it by added "viewBindind = true" in build gradle file.
